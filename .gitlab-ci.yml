@@ -8,6 +8,11 @@ stages:
   - packege
   - deploy
 
+  #TODO: [CACHE] é farmo de levar arquivos de um joob para um outro
+cache:
+  #TODO: [CACHE/Paths] são os arquivos que vão ser compartilhados
+  paths:
+    - ./website/build
 
 before_script: #ele é executado em todos os jobs/script
   - whoami
@@ -16,7 +21,7 @@ before_script: #ele é executado em todos os jobs/script
 testing site:
   stage: test
   before_script:
-    - echo "script que executa antes do script principal"
+    - npm install -g broken-link-checker@0.7.8  wait-on@6.0.0
 
   script:
     - cd website
