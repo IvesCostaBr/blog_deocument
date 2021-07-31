@@ -42,9 +42,6 @@ packege site:
   #TODO: [SCRIPT] é oque vai ser executado naquel job unico campo obrigatorio faria rodar uma pipeline
   script:  
     - ls -ltra 
-    - pwd
-    - whoami
-    - npm --version
     - cd website
     - npm install 
     - npm run build
@@ -99,11 +96,8 @@ deploy to release: &deploy-release
   only:
     - /^release-.*$/
   
-
 turnoff:
   <<: *deploy #caso precise fazer sobrescrita basta apagar o campo e colocar o seu que ele vai reconhecer
-  variables:
-    CNAME: $CI_COMMIT_REF_SLUG.ivescosta.surge.sh
   script:
     - surge  teardown ${CNAME}
   when:
@@ -112,16 +106,23 @@ turnoff:
     name: develop
     url: https://${CNAME}
     action: stop
-  only: #garante que o unico que vai ter o turnOff é a branch release
-    - /^release-.*$/
-  
 
 deploy to production:
+  image: amazonlinux
   <<: *deploy
   stage: deploy
   variables:
     #TODO: [VARIABLE] criação de variaveis locais dentro do joob/E pode ser criado global tambem
     CNAME: ivessantoscosta.surge.sh 
+    S3_BACKET: s3://cerberus-site
+  before_script:
+    - curl https://bootstrap.pypa.io/get-pip.py && python get-pip.py
+    - pip install awscli --upgrade --user && export PATH=-/.local/bin:$PATH 
+    - aws --version
+  script:
+    - aws s3 ls $(S3_BUCKET)
+    - cd website/build/test-site && pwd && ls -ltra
+    - aws s3 rm $(S3_BUCKET) --acl public-read --recursive
   environment:
     name: production
     url: https://${CNAME}
