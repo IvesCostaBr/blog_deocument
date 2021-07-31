@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "docusaurus": "^1.14.7",
-    "wait-on":"^6.0.0",
+    "wait-on":"^2.1.0",
     "broken-link-checker":"^0.7.8"
     
   }

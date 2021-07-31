@@ -8,11 +8,6 @@ stages:
   - packege
   - deploy
 
-  #TODO: [CACHE] é farmo de levar arquivos de um joob para um outro
-cache:
-  #TODO: [CACHE/Paths] são os arquivos que vão ser compartilhados
-  paths:
-    - ./website/build
 
 before_script: #ele é executado em todos os jobs/script
   - whoami
