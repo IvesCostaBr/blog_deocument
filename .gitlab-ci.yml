@@ -5,6 +5,9 @@ stages:
   - test
   - deploy
 
+cache:
+  paths:
+    - ./website/build
 
 build site:  #build é apenas um [*alias de prefixo] e site é o nome do job
   stage: build  #setando o stage build nesse job, ou seja falando que esse job pertence ao build
@@ -23,3 +26,9 @@ build site:  #build é apenas um [*alias de prefixo] e site é o nome do job
     - cd website
     - npm install 
     - npm run build
+
+deploy website:
+  stage: deploy
+  script:
+    - npm install -g surge
+    - surge --project ./website/buid/test-site --domain ivessantoscosta.surge.sh
