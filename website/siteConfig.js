@@ -22,7 +22,7 @@ const users = [
 
 const siteConfig = {
   title: 'Cerberus Documentação', // Title for your website.
-  tagline: 'Dicas para programadores iniciantes',
+  tagline: 'Documentação de Projetos',
   url: 'https://your-docusaurus-test-site.com', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
@@ -31,7 +31,7 @@ const siteConfig = {
 
   // Used for publishing and more
   projectName: 'test-site',
-  organizationName: 'facebook',
+  organizationName: 'by IvesCosta',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
