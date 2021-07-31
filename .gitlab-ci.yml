@@ -107,7 +107,7 @@ deploy to production:
     after_script:
       - whoami
     environment:
-      name: staging
+      name: production
       url: https://${CNAME}
     #TODO: [ Only ] Só será executado sé a politica ( estiver na branch develop)
     only:
