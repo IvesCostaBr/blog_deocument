@@ -52,3 +52,6 @@ deploy website:
   environment:
     name: staging
     url: https://ivessantoscosta.surge.sh
+  #TODO: [ Only ] Só será executado sé a politica ( estiver na branch develop)
+  only:
+    - develop
