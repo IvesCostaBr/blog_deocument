@@ -18,10 +18,10 @@ before_script: #ele é executado em todos os jobs/script
   - whoami
   - pwd
 
-test site:
+testing site:
   stage: test
-  before-script:
-    - npm install -g broken-link-checker wait-on
+  before_script:
+    - npm install -g broken-link-checker & wait-on
 
   script:
     - cd website
