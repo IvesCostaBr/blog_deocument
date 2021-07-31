@@ -50,6 +50,7 @@ packege site:
     - npm install 
     - npm run build
 
+#TODO:----CD Continuos Delivery
 deploy to staging:
   stage: deploy
   #TODO: [ BEFORE SCRIPT ] como ele já possui um before script no nivel local , então vai executar o do nivel global
