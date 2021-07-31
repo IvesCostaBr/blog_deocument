@@ -21,7 +21,7 @@ const users = [
 ];
 
 const siteConfig = {
-  title: 'Build Cerberus', // Title for your website.
+  title: 'Cerberus Documentação', // Title for your website.
   tagline: 'Dicas para programadores iniciantes',
   url: 'https://your-docusaurus-test-site.com', // Your website URL
   baseUrl: '/', // Base URL for your project */
