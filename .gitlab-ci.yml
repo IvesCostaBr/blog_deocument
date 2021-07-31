@@ -31,4 +31,4 @@ deploy website:
   stage: deploy
   script:
     - npm install -g surge
-    - surge --project ./website/buid/test-site --domain ivessantoscosta.surge.sh
+    - surge --project ./website/build/test-site --domain ivessantoscosta.surge.sh
