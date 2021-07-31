@@ -1,15 +1,25 @@
 image: node  #imagem que será usada pelo runner
 
+#nivel Global
+
+#TODO:[ STAGES ] São os estagios de Jobs que por Defalt são criados
 stages:
   - build
   - test
   - deploy
 
+  #TODO: [CACHE] é farmo de levar arquivos de um joob para um outro
 cache:
+  #TODO: [CACHE/Paths] são os arquivos que vão ser compartilhados
   paths:
     - ./website/build
 
-build site:  #build é apenas um [*alias de prefixo] e site é o nome do job
+before_script: #ele é executado em todos os jobs/script
+  - whoami
+  - pwd
+
+#TODO:[ BUILD JOB ] build é apenas um [*alias de prefixo] e site é o nome do job
+build site: 
   stage: build  #setando o stage build nesse job, ou seja falando que esse job pertence ao build
   artifacts:  #Artifacts ele fala pro runner expor esses determiandos arquivos para download
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
@@ -18,7 +28,8 @@ build site:  #build é apenas um [*alias de prefixo] e site é o nome do job
     paths:
       - ./website/build/test-site  
 
-  script:  #script é oque vai ser executado naquel job
+  #TODO: [SCRIPT] é oque vai ser executado naquel job unico campo obrigatorio faria rodar uma pipeline
+  script:  
     - ls -ltra 
     - pwd
     - whoami
@@ -29,6 +40,16 @@ build site:  #build é apenas um [*alias de prefixo] e site é o nome do job
 
 deploy website:
   stage: deploy
+  #TODO: [ BEFORE SCRIPT ] como ele já possui um before script no nivel local , então vai executar o do nivel global
+  before_script: 
+    - whoami
   script:
     - npm install -g surge
     - surge --project ./website/build/test-site --domain ivessantoscosta.surge.sh
+  
+  #TODO: [AFTER SCRIPT] é executado mesmo se o script falhar, no caso o local
+  after_script:
+    - whoami
+  environment:
+    name: staging
+    url: http://produ.exemple.com
