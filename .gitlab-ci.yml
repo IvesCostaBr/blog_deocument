@@ -51,4 +51,4 @@ deploy website:
     - whoami
   environment:
     name: staging
-    url: ivessantoscosta.surge.sh
+    url: https://ivessantoscosta.surge.sh
