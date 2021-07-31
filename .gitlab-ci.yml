@@ -9,6 +9,9 @@ stages:
 build site:  #build é apenas um [*alias de prefixo] e site é o nome do job
   stage: build  #setando o stage build nesse job, ou seja falando que esse job pertence ao build
   artifacts:  #Artifacts ele fala pro runner expor esses determiandos arquivos para download
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    when: always
+    expire_in: 2h20min
     paths:
       - ./website/build/test-site  
 
