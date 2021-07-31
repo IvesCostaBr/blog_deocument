@@ -9,4 +9,4 @@ que legal **Minha coisas** [documentation] minha postagem
 
 `#showMeTheCode`
 
-[Pagina Interna](pagina_interna.md)
+<!-- [Pagina Interna](pagina_interna.md) -->
