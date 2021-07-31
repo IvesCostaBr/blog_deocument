@@ -42,9 +42,8 @@ deploy website:
   stage: deploy
   #TODO: [ BEFORE SCRIPT ] como ele já possui um before script no nivel local , então vai executar o do nivel global
   before_script: 
-    - whoami
-  script:
     - npm install -g surge
+  script:
     - surge --project ./website/build/test-site --domain ivessantoscosta.surge.sh
   
   #TODO: [AFTER SCRIPT] é executado mesmo se o script falhar, no caso o local
@@ -52,4 +51,4 @@ deploy website:
     - whoami
   environment:
     name: staging
-    url: http://produ.exemple.com
+    url: ivessantoscosta.surge.sh
