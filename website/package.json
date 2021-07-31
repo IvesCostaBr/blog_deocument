@@ -7,7 +7,7 @@
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",
     "rename-version": "docusaurus-rename-version",
-    "scan": "snyk test"
+    "scan": "snyk test",
   },
   "devDependencies": {
     "docusaurus": "^1.14.7",
