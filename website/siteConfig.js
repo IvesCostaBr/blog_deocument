@@ -21,7 +21,7 @@ const users = [
 ];
 
 const siteConfig = {
-  title: 'Build Cerberus', // Title for your website.
+  title: 'Cerberus Documentação', // Title for your website.
   tagline: 'Dicas para programadores iniciantes',
   url: 'https://your-docusaurus-test-site.com', // Your website URL
   baseUrl: '/', // Base URL for your project */
@@ -54,8 +54,8 @@ const siteConfig = {
 
   /* Colors for website */
   colors: {
-    primaryColor: '#1CFEF0',
-    secondaryColor: '#656C6C',
+    primaryColor: '#836FFF',
+    secondaryColor: '#836FFF',
   },
 
   /* Custom fonts for website */

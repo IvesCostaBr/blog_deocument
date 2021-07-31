@@ -38,7 +38,7 @@ build site:
     - npm install 
     - npm run build
 
-deploy website:
+deploy to staging:
   stage: deploy
   #TODO: [ BEFORE SCRIPT ] como ele já possui um before script no nivel local , então vai executar o do nivel global
   before_script: 
@@ -52,3 +52,6 @@ deploy website:
   environment:
     name: staging
     url: https://ivessantoscosta.surge.sh
+  #TODO: [ Only ] Só será executado sé a politica ( estiver na branch develop)
+  only:
+    - master
