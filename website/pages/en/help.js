@@ -46,6 +46,7 @@ function Help(props) {
           <p>This project is maintained by a dedicated group of people.</p>
           <GridBlock contents={supportLinks} layout="threeColumn" />
         </div>
+
       </Container>
     </div>
   );
