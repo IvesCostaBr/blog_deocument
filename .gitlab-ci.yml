@@ -104,7 +104,7 @@ deploy to release:
     - whoami
   environment:
     name: develop
-    url: https://$(CNAME)
+    url: https://${CNAME}
     on_stop: turnoff
   only:
     - /^release-.*$/
@@ -121,14 +121,14 @@ turnoff:
   before_script:
     - npm install -g surge@^0.20.1
   script:
-    - surge  teardown $(CNAME)
+    - surge  teardown ${CNAME}
   when:
     manual
   after_script:
     - whoami
   environment:
     name: develop
-    url: https://$(CNAME)
+    url: https://${CNAME}
     action: stop
   only: #garante que o unico que vai ter o turnOff é a branch release
     - /^release-.*$/
