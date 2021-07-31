@@ -59,7 +59,7 @@ vulnerabilities check:
 
 
 #TODO:----CD Continuos Delivery
-deploy to staging:
+deploy to staging: &deploy #anchor  exporta esses parametros
   stage: deploy
   variables:
     #TODO: [VARIABLE] criação de variaveis locais dentro do joob/E pode ser criado global tambem
@@ -88,44 +88,26 @@ deploy to staging:
 
 
 #TODO:Criando Branch de release
-deploy to release:
-  stage: deploy
+deploy to release: &deploy-release
+  <<: *deploy   #Injeta a ancora dentro desse job 
   variables:
     CNAME: $CI_COMMIT_REF_SLUG.ivescosta.surge.sh
     GIT_STRATEGY: none 
-  cache:
-    key: site-packege
-    policy: pull
-  before_script:
-    - npm install -g surge@^0.20.1
-  script:
-    - surge --project ./website/build/test-site --domain ${CNAME} 
-  after_script:
-    - whoami
   environment:
     name: develop
-    url: https://${CNAME}
     on_stop: turnoff
   only:
     - /^release-.*$/
   
 
 turnoff:
-  stage: deploy
+  <<: *deploy #caso precise fazer sobrescrita basta apagar o campo e colocar o seu que ele vai reconhecer
   variables:
     CNAME: $CI_COMMIT_REF_SLUG.ivescosta.surge.sh
-    GIT_STRATEGY: none 
-  cache:
-    key: site-packege
-    policy: pull
-  before_script:
-    - npm install -g surge@^0.20.1
   script:
     - surge  teardown ${CNAME}
   when:
     manual
-  after_script:
-    - whoami
   environment:
     name: develop
     url: https://${CNAME}
@@ -135,28 +117,14 @@ turnoff:
   
 
 deploy to production:
-    stage: deploy
-    variables:
-      #TODO: [VARIABLE] criação de variaveis locais dentro do joob/E pode ser criado global tambem
-      CNAME: ivessantoscosta.surge.sh 
-      GIT_STRATEGY: none
-    cache:
-      #[ KEY  ] é responsavel por dar uma indentificação do cache , pois podemos ter mais de um
-      key: site-packege 
-      #[ POLICY ] Depois que fizer todo o joob vai pegar o diretorio e fazer um push para os proximos job
-      policy: pull  
-    #TODO: [ BEFORE SCRIPT ] como ele já possui um before script no nivel local , então vai executar o do nivel global
-    before_script: 
-      - npm install -g surge@^0.20.1
-    script:
-      - surge --project ./website/build/test-site --domain ${CNAME}
-    
-    #TODO: [AFTER SCRIPT] é executado mesmo se o script falhar, no caso o local
-    after_script:
-      - whoami
-    environment:
-      name: production
-      url: https://${CNAME}
-    #TODO: [ Only ] Só será executado sé a politica ( estiver na branch develop)
-    only:
-      - master
+  <<: *deploy
+  stage: deploy
+  variables:
+    #TODO: [VARIABLE] criação de variaveis locais dentro do joob/E pode ser criado global tambem
+    CNAME: ivessantoscosta.surge.sh 
+  environment:
+    name: production
+    url: https://${CNAME}
+  #TODO: [ Only ] Só será executado sé a politica ( estiver na branch develop)
+  only:
+    - master
