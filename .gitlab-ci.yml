@@ -26,8 +26,8 @@ testing site:
   script:
     - cd website
     - npm install && npm run start &
-    - wait-on http://localhost:3003/  --t 30000
-    - blc --recursive --exclude-external http://localhost:3000
+    - wait-on http://localhost:3000/  --t 30000
+    - blc --recursive --exclude-external http://localhost:3000/
 
 
 #TODO:[ BUILD JOB ] build é apenas um [*alias de prefixo] e site é o nome do job
