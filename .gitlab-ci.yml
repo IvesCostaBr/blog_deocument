@@ -130,7 +130,7 @@ turnoff:
     name: develop
     url: https://$(CNAME)
     action: stop
-  only:
+  only: #garante que o unico que vai ter o turnOff é a branch release
     - /^release-.*$/
   
 
