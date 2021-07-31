@@ -10,8 +10,8 @@ build site:  #build é apenas um [*alias de prefixo] e site é o nome do job
   stage: build  #setando o stage build nesse job, ou seja falando que esse job pertence ao build
   artifacts:  #Artifacts ele fala pro runner expor esses determiandos arquivos para download
     path:
-      - ./website/build/test-site
-  script:  #script é oque vai ser executado naquel job
+      - ./website/build/test-site  
+    script:  #script é oque vai ser executado naquel job
     - ls -ltra 
     - pwd
     - whoami
