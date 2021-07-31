@@ -8,12 +8,6 @@ stages:
   - packege
   - deploy
 
-  #TODO: [CACHE] é farmo de levar arquivos de um joob para um outro
-cache:
-  #TODO: [CACHE/Paths] são os arquivos que vão ser compartilhados
-  paths:
-    - ./website/build
-
 before_script: #ele é executado em todos os jobs/script
   - whoami
   - pwd
@@ -22,24 +16,27 @@ testing site:
   stage: test
   before_script:
     - npm install -g broken-link-checker@0.7.8  wait-on@6.0.0
-
   script:
     - cd website
     - npm install && npm run start &
     - wait-on http://localhost:3000/
     - blc --recursive --exclude-external http://localhost:3000/
 
-
 #TODO:[ BUILD JOB ] build é apenas um [*alias de prefixo] e site é o nome do job
 packege site: 
   stage: packege  #setando o stage packege nesse job, ou seja falando que esse job pertence ao build
+  #TODO: [CACHE] é farmo de levar arquivos de um joob para um outro
+  cache:
+    #[ KEY  ] é responsavel por dar uma indentificação do cache , pois podemos ter mais de um
+    key: site-packege 
+    #[ POLICY ] Depois que fizer todo o joob vai pegar o diretorio e fazer um push para os proximos job
+    policy: pull  
   artifacts:  #Artifacts ele fala pro runner expor esses determiandos arquivos para download
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
     when: always
     expire_in: 2h20min
     paths:
       - ./website/build/test-site  
-
   #TODO: [SCRIPT] é oque vai ser executado naquel job unico campo obrigatorio faria rodar uma pipeline
   script:  
     - ls -ltra 
