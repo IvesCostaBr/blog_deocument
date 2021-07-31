@@ -18,6 +18,11 @@ before_script: #ele é executado em todos os jobs/script
   - whoami
   - pwd
 
+test site:
+  stage: test
+  script:
+    - echo "Testando o site"
+
 #TODO:[ BUILD JOB ] build é apenas um [*alias de prefixo] e site é o nome do job
 build site: 
   stage: build  #setando o stage build nesse job, ou seja falando que esse job pertence ao build
