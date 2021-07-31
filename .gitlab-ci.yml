@@ -1,0 +1,6 @@
+construir site:  //Construir é um [*alias] e [*site] o nome do job
+  script:  //script tag obrigatoria
+    - ls -ltra //os comandos a serem executados
+    - pwd
+    - whoami
+    - npm --version
