@@ -54,7 +54,7 @@ vulnerabilities check:
   script:
     - cd website && npm install && npm run scan
 
-  onlye:
+  only:
     - develop
 
 
