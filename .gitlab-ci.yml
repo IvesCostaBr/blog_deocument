@@ -86,6 +86,54 @@ deploy to staging:
   only:
     - develop
 
+
+#TODO:Criando Branch de release
+deploy to release:
+  stage: deploy
+  variables:
+    CNAME: $CI_COMMIT_REF_SLUG.ivescosta.surge.sh
+    GIT_STRATEGY: none 
+  cache:
+    key: site-packege
+    policy: pull
+  before_script:
+    - npm install -g surge@^0.20.1
+  script:
+    - surge --project ./website/build/test-site --domain $(CNAME)  
+  after_script:
+    - whoami
+  environment:
+    name: develop
+    url: https://$(CNAME)
+    on_stop: turnoff
+  only:
+    - /^release-.*$/
+  
+
+turnoff:
+  stage: deploy
+  variables:
+    CNAME: $CI_COMMIT_REF_SLUG.ivescosta.surge.sh
+    GIT_STRATEGY: none 
+  cache:
+    key: site-packege
+    policy: pull
+  before_script:
+    - npm install -g surge@^0.20.1
+  script:
+    - surge  teardown $(CNAME)
+  when:
+    manual
+  after_script:
+    - whoami
+  environment:
+    name: develop
+    url: https://$(CNAME)
+    action: stop
+  only:
+    - /^release-.*$/
+  
+
 deploy to production:
     stage: deploy
     variables:
