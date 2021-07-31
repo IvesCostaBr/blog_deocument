@@ -1,7 +1,14 @@
-image: node
+image: node  #imagem que será usada pelo runner
 
-construir site:  
-  script:  
+stages:
+  - build
+  - test
+  - deploy
+
+
+build site:  #build é apenas um [*alias de prefixo] e site é o nome do job
+  stage: build  #setando o stage build nesse job, ou seja falando que esse job pertence ao build
+  script:  #script é oque vai ser executado naquel job
     - ls -ltra 
     - pwd
     - whoami
