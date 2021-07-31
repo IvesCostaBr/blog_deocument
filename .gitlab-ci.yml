@@ -58,8 +58,8 @@ deploy to staging:
   stage: deploy
   variables:
     #TODO: [VARIABLE] criação de variaveis locais dentro do joob/E pode ser criado global tambem
-    - CNAME: staging-ivessantoscosta.surge.sh 
-    - GIT_STRATEGY: none
+    CNAME: staging-ivessantoscosta.surge.sh 
+    GIT_STRATEGY: none
   cache:
     #[ KEY  ] é responsavel por dar uma indentificação do cache , pois podemos ter mais de um
     key: site-packege 
@@ -81,30 +81,29 @@ deploy to staging:
   only:
     - develop
 
-  deploy to production:
-  stage: deploy
-  variables:
-    #TODO: [VARIABLE] criação de variaveis locais dentro do joob/E pode ser criado global tambem
-    - CNAME: ivessantoscosta.surge.sh 
-    - GIT_STRATEGY: none
-  cache:
-    #[ KEY  ] é responsavel por dar uma indentificação do cache , pois podemos ter mais de um
-    key: site-packege 
-    #[ POLICY ] Depois que fizer todo o joob vai pegar o diretorio e fazer um push para os proximos job
-    policy: pull  
-  #TODO: [ BEFORE SCRIPT ] como ele já possui um before script no nivel local , então vai executar o do nivel global
-  before_script: 
-    - npm install -g surge@^0.20.1
-  script:
-    - surge --project ./website/build/test-site --domain ${CNAME}
-  
-  #TODO: [AFTER SCRIPT] é executado mesmo se o script falhar, no caso o local
-  after_script:
-    - whoami
-  environment:
-    name: staging
-    url: https://${CNAME}
-  #TODO: [ Only ] Só será executado sé a politica ( estiver na branch develop)
-  only:
-    - master
-
+deploy to production:
+    stage: deploy
+    variables:
+      #TODO: [VARIABLE] criação de variaveis locais dentro do joob/E pode ser criado global tambem
+      CNAME: ivessantoscosta.surge.sh 
+      GIT_STRATEGY: none
+    cache:
+      #[ KEY  ] é responsavel por dar uma indentificação do cache , pois podemos ter mais de um
+      key: site-packege 
+      #[ POLICY ] Depois que fizer todo o joob vai pegar o diretorio e fazer um push para os proximos job
+      policy: pull  
+    #TODO: [ BEFORE SCRIPT ] como ele já possui um before script no nivel local , então vai executar o do nivel global
+    before_script: 
+      - npm install -g surge@^0.20.1
+    script:
+      - surge --project ./website/build/test-site --domain ${CNAME}
+    
+    #TODO: [AFTER SCRIPT] é executado mesmo se o script falhar, no caso o local
+    after_script:
+      - whoami
+    environment:
+      name: staging
+      url: https://${CNAME}
+    #TODO: [ Only ] Só será executado sé a politica ( estiver na branch develop)
+    only:
+      - master
