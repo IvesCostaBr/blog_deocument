@@ -21,7 +21,7 @@ before_script: #ele é executado em todos os jobs/script
 testing site:
   stage: test
   before_script:
-    - npm install -g broken-link-checker  wait-on
+    - echo "script que executa antes do script principal"
 
   script:
     - cd website
